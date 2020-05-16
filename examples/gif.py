@@ -17,32 +17,22 @@
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
 from PIL import Image
-import ST7735
+import ILI9163
 import time
 import sys
 
-print("""
-gif.py - Display a gif on the LCD.
-
-If you're using Breakout Garden, plug the 0.96" LCD (SPI)
-breakout into the front slot.
-""")
-
-if len(sys.argv) > 1:
-    image_file = sys.argv[1]
-else:
-    print("Usage: {} <filename.gif>".format(sys.argv[0]))
-    sys.exit(0)
-
+image_file = "/home/pi/ili9163-python/examples/deployrainbows.gif"
 # Create TFT LCD display class.
-disp = ST7735.ST7735(
+disp = ILI9163.ILI9163(
     port=0,
-    cs=ST7735.BG_SPI_CS_FRONT,  # BG_SPI_CSB_BACK or BG_SPI_CS_FRONT
-    dc=9,
-    backlight=19,               # 18 for back BG slot, 19 for front BG slot.
-    spi_speed_hz=4000000
+    cs=0,
+    dc=12,
+    rst=25,
+    rotation=90,
+    width=128,
+    height=160,
+    spi_speed_hz=40000000
 )
 
 # Initialize display.
@@ -52,7 +42,7 @@ width = disp.width
 height = disp.height
 
 # Load an image.
-print('Loading gif: {}...'.format(image_file))
+#print('Loading gif: {}...'.format(image_file))
 image = Image.open(image_file)
 
 print('Drawing gif, press Ctrl+C to exit!')

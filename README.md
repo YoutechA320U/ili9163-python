@@ -1,43 +1,28 @@
-# Python ST7735
+# Python ILI9163
 
-[![Build Status](https://travis-ci.com/pimoroni/st7735-python.svg?branch=master)](https://travis-ci.com/pimoroni/st7735-python)
-[![Coverage Status](https://coveralls.io/repos/github/pimoroni/st7735-python/badge.svg?branch=master)](https://coveralls.io/github/pimoroni/st7735-python?branch=master)
-[![PyPi Package](https://img.shields.io/pypi/v/st7735.svg)](https://pypi.python.org/pypi/st7735)
-[![Python Versions](https://img.shields.io/pypi/pyversions/st7735.svg)](https://pypi.python.org/pypi/st7735)
+ILI9163 TFT液晶ディスプレイを制御するためのPythonライブラリです。カーネルモジュールをインストールすることなく、ディスプレイ上に簡単な描画を行うことができます。
 
+ILI9163 ベースの 160x80 ピクセル TFT SPI ディスプレイ用に特別に設計されています。(具体的には[秋月電子通商](http://akizukidenshi.com/catalog/top.aspx)の[1.77インチ カラーグラフィックTFT LCD(１２８x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/))。
 
-Python library to control an ST7735 TFT LCD display. Allows simple drawing on the display without installing a kernel module.
-
-Designed specifically to work with a ST7735 based 160x80 pixel TFT SPI display. (Specifically the 0.96" SPI LCD from Pimoroni).
-
-Make sure you have the following dependencies:
+以下の依存関係があることを確認してください。
 
 ````
-sudo apt-get update
-sudo apt-get install python-rpi.gpio python-spidev python-pip python-imaging python-numpy
-````
 
-Install this library by running:
+python3-rpi.gpio python3-spidev python3-pip python3-imaging python3-numpy
 
 ````
-sudo pip install st7735
-````
 
-See example of usage in the examples folder.
+# ライセンスと履歴
 
+このライブラリは、Tony DiCola氏がAdafruit Industriesのために書いたコードを修正したもので、Clement Skau氏がST7735で動作するように修正したものです。
 
-# Licensing & History
+Pimoroniによって修正され、同社の160x80 SPI LCDブレークアウトをサポートし、他のST7735搭載ディスプレイをサポートするように一般化されています。
 
-This library is a modification of a modification of code originally written by Tony DiCola for Adafruit Industries, and modified to work with the ST7735 by Clement Skau.
+YoutechA320Uによって修正され、秋月電子通商の1.77インチ カラーグラフィックTFT LCD(１２８x(RGB)x160ドット) 評価キットのサポートが追加されました。
 
-It has been modified by Pimoroni to include support for their 160x80 SPI LCD breakout, and hopefully also generalised enough so that it will support other ST7735-powered displays.
+## 修正内容は以下の通りです。
 
-## Modifications include:
-
-* PIL/Pillow has been removed from the underlying display driver to separate concerns- you should create your own PIL image and display it using `display(image)`
-* `width`, `height`, `rotation`, `invert`, `offset_left` and `offset_top` parameters can be passed into `__init__` for alternate displays
-* `Adafruit_GPIO` has been replaced with `RPi.GPIO` and `spidev` to closely align with our other software (IE: Raspberry Pi only)
-* Test fixtures have been added to keep this library stable
+* 初期化コマンド(.begin())がILI9163向けに変更されました。ST7735でも動作はしますが余白が発生する場合があります。
 
 Pimoroni invests time and resources forking and modifying this open source code, please support Pimoroni and open-source software by purchasing products from us, too!
 
@@ -46,3 +31,4 @@ Adafruit invests time and resources providing this open source code, please supp
 Modified from 'Modified from 'Adafruit Python ILI9341' written by Tony DiCola for Adafruit Industries.' written by Clement Skau.
 
 MIT license, all text above must be included in any redistribution
+

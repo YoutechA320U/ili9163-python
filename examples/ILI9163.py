@@ -18,6 +18,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+
+#2020 @YoutechA320U
 import numbers
 import time
 import numpy as np
@@ -26,7 +28,7 @@ import spidev
 import RPi.GPIO as GPIO
 
 
-__version__ = '0.0.3'
+__version__ = '0.0.5'
 
 BG_SPI_CS_BACK = 0
 BG_SPI_CS_FRONT = 1
@@ -34,79 +36,79 @@ BG_SPI_CS_FRONT = 1
 SPI_CLOCK_HZ = 16000000
 
 # Constants for interacting with display registers.
-ST7735_TFTWIDTH = 80
-ST7735_TFTHEIGHT = 160
+ILI9163_TFTWIDTH = 128
+ILI9163_TFTHEIGHT = 160
 
-ST7735_COLS = 132
-ST7735_ROWS = 162
+ILI9163_COLS = 128
+ILI9163_ROWS = 160
 
-ST7735_NOP = 0x00
-ST7735_SWRESET = 0x01
-ST7735_RDDID = 0x04
-ST7735_RDDST = 0x09
+ILI9163_NOP = 0x00
+ILI9163_SWRESET = 0x01
+ILI9163_RDDID = 0x04
+ILI9163_RDDST = 0x09
 
-ST7735_SLPIN = 0x10
-ST7735_SLPOUT = 0x11
-ST7735_PTLON = 0x12
-ST7735_NORON = 0x13
+ILI9163_SLPIN = 0x10
+ILI9163_SLPOUT = 0x11
+ILI9163_PTLON = 0x12
+ILI9163_NORON = 0x13
 
-# ILI9341_RDMODE = 0x0A
-# ILI9341_RDMADCTL = 0x0B
-# ILI9341_RDPIXFMT = 0x0C
-# ILI9341_RDIMGFMT = 0x0A
-# ILI9341_RDSELFDIAG = 0x0F
+ILI9163_RDMODE = 0x0A
+ILI9163_RDMADCTL = 0x0B
+ILI9163_RDPIXFMT = 0x0C
+ILI9163_RDIMGFMT = 0x0A
+ILI9163_RDSELFDIAG = 0x0F
 
-ST7735_INVOFF = 0x20
-ST7735_INVON = 0x21
-# ILI9341_GAMMASET = 0x26
-ST7735_DISPOFF = 0x28
-ST7735_DISPON = 0x29
+ILI9163_INVOFF = 0x20
+ILI9163_INVON = 0x21
+ILI9163_GAMMASET = 0x26
+ILI9163_DISPOFF = 0x28
+ILI9163_DISPON = 0x29
 
-ST7735_CASET = 0x2A
-ST7735_RASET = 0x2B
-ST7735_RAMWR = 0x2C
-ST7735_RAMRD = 0x2E
+ILI9163_CASET = 0x2A
+ILI9163_RASET = 0x2B
+ILI9163_RAMWR = 0x2C
+ILI9163_RAMRD = 0x2E
 
-ST7735_PTLAR = 0x30
-ST7735_MADCTL = 0x36
-# ST7735_PIXFMT = 0x3A
-ST7735_COLMOD = 0x3A
+ILI9163_PTLAR = 0x30
+ILI9163_MADCTL = 0x36
+ILI9163_PIXFMT = 0x3A
+ILI9163_COLMOD = 0x3A
 
-ST7735_FRMCTR1 = 0xB1
-ST7735_FRMCTR2 = 0xB2
-ST7735_FRMCTR3 = 0xB3
-ST7735_INVCTR = 0xB4
-# ILI9341_DFUNCTR = 0xB6
-ST7735_DISSET5 = 0xB6
+ILI9163_FRMCTR1 = 0xB1
+ILI9163_FRMCTR2 = 0xB2
+ILI9163_FRMCTR3 = 0xB3
+ILI9163_INVCTR = 0xB4
+ILI9163_DFUNCTR = 0xB6
+ILI9163_DISSET5 = 0xB6
 
 
-ST7735_PWCTR1 = 0xC0
-ST7735_PWCTR2 = 0xC1
-ST7735_PWCTR3 = 0xC2
-ST7735_PWCTR4 = 0xC3
-ST7735_PWCTR5 = 0xC4
-ST7735_VMCTR1 = 0xC5
-# ILI9341_VMCTR2 = 0xC7
+ILI9163_PWCTR1 = 0xC0
+ILI9163_PWCTR2 = 0xC1
+ILI9163_PWCTR3 = 0xC2
+ILI9163_PWCTR4 = 0xC3
+ILI9163_PWCTR5 = 0xC4
+ILI9163_VMCTR1 = 0xC5
+ILI9163_VMCTR2 = 0xC7
 
-ST7735_RDID1 = 0xDA
-ST7735_RDID2 = 0xDB
-ST7735_RDID3 = 0xDC
-ST7735_RDID4 = 0xDD
+ILI9163_RDID1 = 0xDA
+ILI9163_RDID2 = 0xDB
+ILI9163_RDID3 = 0xDC
+ILI9163_RDID4 = 0xDD
 
-ST7735_GMCTRP1 = 0xE0
-ST7735_GMCTRN1 = 0xE1
+ILI9163_GMCTRP1 = 0xE0
+ILI9163_GMCTRN1 = 0xE1
 
-ST7735_PWCTR6 = 0xFC
+ILI9163_PWCTR6 = 0xFC
 
 # Colours for convenience
-ST7735_BLACK = 0x0000  # 0b 00000 000000 00000
-ST7735_BLUE = 0x001F  # 0b 00000 000000 11111
-ST7735_GREEN = 0x07E0  # 0b 00000 111111 00000
-ST7735_RED = 0xF800  # 0b 11111 000000 00000
-ST7735_CYAN = 0x07FF  # 0b 00000 111111 11111
-ST7735_MAGENTA = 0xF81F  # 0b 11111 000000 11111
-ST7735_YELLOW = 0xFFE0  # 0b 11111 111111 00000
-ST7735_WHITE = 0xFFFF  # 0b 11111 111111 11111
+ILI9163_BLACK = 0x0000  # 0b 00000 000000 00000
+ILI9163_BLUE = 0x001F  # 0b 00000 000000 11111
+ILI9163_GREEN = 0x07E0  # 0b 00000 111111 00000
+ILI9163_RED = 0xF800  # 0b 11111 000000 00000
+ILI9163_CYAN = 0x07FF  # 0b 00000 111111 11111
+ILI9163_MAGENTA = 0xF81F  # 0b 11111 000000 11111
+ILI9163_YELLOW = 0xFFE0  # 0b 11111 111111 00000
+ILI9163_WHITE = 0xFFFF  # 0b 11111 111111 11111
 
 
 def color565(r, g, b):
@@ -125,11 +127,11 @@ def image_to_data(image, rotation=0):
     return np.dstack(((color >> 8) & 0xFF, color & 0xFF)).flatten().tolist()
 
 
-class ST7735(object):
-    """Representation of an ST7735 TFT LCD."""
+class ILI9163(object):
+    """Representation of an ILI9163 TFT LCD."""
 
-    def __init__(self, port, cs, dc, backlight=None, rst=None, width=ST7735_TFTWIDTH,
-                 height=ST7735_TFTHEIGHT, rotation=90, offset_left=None, offset_top=None, invert=True, spi_speed_hz=4000000):
+    def __init__(self, port, cs, dc, backlight=None, rst=None, width=ILI9163_TFTWIDTH,
+                 height=ILI9163_TFTHEIGHT, rotation=90, offset_left=None, offset_top=None, invert=True, spi_speed_hz=4000000):
         """Create an instance of the display using SPI communication.
 
         Must provide the GPIO pin number for the D/C pin and the SPI driver.
@@ -139,12 +141,12 @@ class ST7735(object):
         :param port: SPI port number
         :param cs: SPI chip-select number (0 or 1 for BCM
         :param backlight: Pin for controlling backlight
-        :param rst: Reset pin for ST7735
-        :param width: Width of display connected to ST7735
-        :param height: Height of display connected to ST7735
-        :param rotation: Rotation of display connected to ST7735
-        :param offset_left: COL offset in ST7735 memory
-        :param offset_top: ROW offset in ST7735 memory
+        :param rst: Reset pin for ILI9163
+        :param width: Width of display connected to ILI9163
+        :param height: Height of display connected to ILI9163
+        :param rotation: Rotation of display connected to ILI9163
+        :param offset_left: COL offset in ILI9163 memory
+        :param offset_top: ROW offset in ILI9163 memory
         :param invert: Invert display
         :param spi_speed_hz: SPI speed (in Hz)
 
@@ -167,13 +169,13 @@ class ST7735(object):
 
         # Default left offset to center display
         if offset_left is None:
-            offset_left = (ST7735_COLS - width) // 2
+            offset_left = (ILI9163_COLS - width) // 2
 
         self._offset_left = offset_left
 
         # Default top offset to center display
         if offset_top is None:
-            offset_top = (ST7735_ROWS - height) // 2
+            offset_top = (ILI9163_ROWS - height) // 2
 
         self._offset_top = offset_top
 
@@ -242,77 +244,52 @@ class ST7735(object):
     def _init(self):
         # Initialize the display.
 
-        self.command(ST7735_SWRESET)    # Software reset
+        self.command(ILI9163_SWRESET)    # Software reset
         time.sleep(0.150)               # delay 150 ms
 
-        self.command(ST7735_SLPOUT)     # Out of sleep mode
+        self.command(ILI9163_SLPOUT)     # Out of sleep mode
         time.sleep(0.500)               # delay 500 ms
 
-        self.command(ST7735_FRMCTR1)    # Frame rate ctrl - normal mode
-        self.data(0x01)                 # Rate = fosc/(1x2+40) * (LINE+2C+2D)
-        self.data(0x2C)
-        self.data(0x2D)
+        self.command(ILI9163_FRMCTR1)    # Frame rate ctrl - normal mode
+        self.data(0x0a)
+        self.data(0x14)
 
-        self.command(ST7735_FRMCTR2)    # Frame rate ctrl - idle mode
-        self.data(0x01)                 # Rate = fosc/(1x2+40) * (LINE+2C+2D)
-        self.data(0x2C)
-        self.data(0x2D)
-
-        self.command(ST7735_FRMCTR3)    # Frame rate ctrl - partial mode
-        self.data(0x01)                 # Dot inversion mode
-        self.data(0x2C)
-        self.data(0x2D)
-        self.data(0x01)                 # Line inversion mode
-        self.data(0x2C)
-        self.data(0x2D)
-
-        self.command(ST7735_INVCTR)     # Display inversion ctrl
-        self.data(0x07)                 # No inversion
-
-        self.command(ST7735_PWCTR1)     # Power control
+        self.command(ILI9163_PWCTR1)     # Power control
         self.data(0xA2)
         self.data(0x02)                 # -4.6V
         self.data(0x84)                 # auto mode
 
-        self.command(ST7735_PWCTR2)     # Power control
-        self.data(0x0A)                 # Opamp current small
-        self.data(0x00)                 # Boost frequency
+        self.command(ILI9163_VMCTR1)     # Power control
+        self.data(0x2f)
+        self.data(0x3e)
 
-        self.command(ST7735_PWCTR4)     # Power control
-        self.data(0x8A)                 # BCLK/2, Opamp current small & Medium low
-        self.data(0x2A)
-
-        self.command(ST7735_PWCTR5)     # Power control
-        self.data(0x8A)
-        self.data(0xEE)
-
-        self.command(ST7735_VMCTR1)     # Power control
-        self.data(0x0E)
+        self.command(ILI9163_VMCTR2)     # Power control
+        self.data(0x40)
 
         if self._invert:
-            self.command(ST7735_INVON)   # Invert display
+            self.command(ILI9163_INVOFF)  # Don't invert display
         else:
-            self.command(ST7735_INVOFF)  # Don't invert display
+            self.command(ILI9163_INVON)   # Invert display
 
-        self.command(ST7735_MADCTL)     # Memory access control (directions)
-        self.data(0xC8)                 # row addr/col addr, bottom to top refresh
+        self.command(ILI9163_MADCTL)     # Memory access control (directions)
+        self.data(0xC0)                 # row addr/col addr, bottom to top refresh
 
-        self.command(ST7735_COLMOD)     # set color mode
+        self.command(ILI9163_COLMOD)     # set color mode
         self.data(0x05)                 # 16-bit color
 
-        self.command(ST7735_CASET)      # Column addr set
+        self.command(ILI9163_CASET)      # Column addr set
         self.data(0x00)                 # XSTART = 0
-        self.data(self._offset_left)
-        self.data(0x00)                 # XEND = ROWS - height
-        self.data(self._width + self._offset_left - 1)
+        self.data(0x00)
+        self.data(0x00)
+        self.data(0x7f)
 
-        self.command(ST7735_RASET)      # Row addr set
-        self.data(0x00)                 # XSTART = 0
-        self.data(self._offset_top)
-        self.data(0x00)                 # XEND = COLS - width
-        self.data(self._height + self._offset_top - 1)
+        self.command(ILI9163_RASET)      # Row addr set
+        self.data(0x00)
+        self.data(0x00)
+        self.data(0x00)
+        self.data(0x9f)
 
-        self.command(ST7735_GMCTRP1)    # Set Gamma
+        self.command(ILI9163_GMCTRP1)    # Set Gamma
         self.data(0x02)
         self.data(0x1c)
         self.data(0x07)
@@ -330,7 +307,7 @@ class ST7735(object):
         self.data(0x03)
         self.data(0x10)
 
-        self.command(ST7735_GMCTRN1)    # Set Gamma
+        self.command(ILI9163_GMCTRN1)    # Set Gamma
         self.data(0x03)
         self.data(0x1d)
         self.data(0x07)
@@ -348,10 +325,10 @@ class ST7735(object):
         self.data(0x02)
         self.data(0x10)
 
-        self.command(ST7735_NORON)      # Normal display on
+        self.command(ILI9163_NORON)      # Normal display on
         time.sleep(0.10)                # 10 ms
 
-        self.command(ST7735_DISPON)     # Display on
+        self.command(ILI9163_DISPON)     # Display on
         time.sleep(0.100)               # 100 ms
 
     def begin(self):
@@ -381,17 +358,17 @@ class ST7735(object):
         x0 += self._offset_left
         x1 += self._offset_left
 
-        self.command(ST7735_CASET)       # Column addr set
+        self.command(ILI9163_CASET)       # Column addr set
         self.data(x0 >> 8)
         self.data(x0)                    # XSTART
         self.data(x1 >> 8)
         self.data(x1)                    # XEND
-        self.command(ST7735_RASET)       # Row addr set
+        self.command(ILI9163_RASET)       # Row addr set
         self.data(y0 >> 8)
         self.data(y0)                    # YSTART
         self.data(y1 >> 8)
         self.data(y1)                    # YEND
-        self.command(ST7735_RAMWR)       # write to RAM
+        self.command(ILI9163_RAMWR)       # write to RAM
 
     def display(self, image):
         """Write the provided image to the hardware.

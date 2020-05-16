@@ -24,7 +24,7 @@ import sys
 
 from PIL import Image
 from PIL import ImageDraw
-import ST7735 as ST7735
+import ILI9163 as ILI9163
 
 SPI_SPEED_MHZ = 10  # Higher speed = higher framerate
 
@@ -40,14 +40,16 @@ breakout into the rear slot.
 Running at: {}MHz
 """.format(SPI_SPEED_MHZ))
 
-# Create ST7735 LCD display class.
-disp = ST7735.ST7735(
+# Create ILI9163 LCD display class.
+disp = ILI9163.ILI9163(
     port=0,
-    cs=ST7735.BG_SPI_CS_FRONT,  # BG_SPI_CSB_BACK or BG_SPI_CS_FRONT
-    dc=9,
-    backlight=19,               # 18 for back BG slot, 19 for front BG slot.
+    cs=0,
+    dc=12,
+    rst=25,
     rotation=90,
-    spi_speed_hz=SPI_SPEED_MHZ * 1000000
+    width=128,
+    height=160,
+    spi_speed_hz=62000000
 )
 
 WIDTH = disp.width

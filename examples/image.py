@@ -21,29 +21,20 @@
 import sys
 
 from PIL import Image
-import ST7735 as ST7735
+import ILI9163
 
-print("""
-image.py - Display an image on the LCD.
-
-If you're using Breakout Garden, plug the 0.96" LCD (SPI)
-breakout into the rear slot.
-""")
-
-if len(sys.argv) < 2:
-    print("Usage: {} <image_file>".format(sys.argv[0]))
-    sys.exit(1)
-
-image_file = sys.argv[1]
+image_file = "/home/pi/ili9163-python/examples/cat.jpg"
 
 # Create ST7735 LCD display class.
-disp = ST7735.ST7735(
+disp = ILI9163.ILI9163(
     port=0,
-    cs=ST7735.BG_SPI_CS_FRONT,  # BG_SPI_CSB_BACK or BG_SPI_CS_FRONT
-    dc=9,
-    backlight=19,               # 18 for back BG slot, 19 for front BG slot.
+    cs=0,
+    dc=12,
+    rst=25,
     rotation=90,
-    spi_speed_hz=4000000
+    width=128,
+    height=160,
+    spi_speed_hz=40000000
 )
 
 WIDTH = disp.width
@@ -53,7 +44,6 @@ HEIGHT = disp.height
 disp.begin()
 
 # Load an image.
-print('Loading image: {}...'.format(image_file))
 image = Image.open(image_file)
 
 # Resize the image

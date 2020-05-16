@@ -1,21 +1,24 @@
+# -*- coding: utf-8 -*-
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 import time
 
-import ST7735
+import ILI9163
 
 
-MESSAGE = "Hello World! How are you today?"
+MESSAGE = "AE-ATM0177B3Aは秋月電子通商で買えるSPI接続の128x160ディスプレイモジュールです。ドライバはILI9163でST7735とほぼ同じです。"
 
-# Create ST7735 LCD display class.
-disp = ST7735.ST7735(
+# Create ILI9163 LCD display class.
+disp = ILI9163.ILI9163(
     port=0,
-    cs=ST7735.BG_SPI_CS_FRONT,  # BG_SPI_CSB_BACK or BG_SPI_CS_FRONT
-    dc=9,
-    backlight=19,               # 18 for back BG slot, 19 for front BG slot.
+    cs=0,
+    dc=12,
+    rst=25,
     rotation=90,
-    spi_speed_hz=10000000
+    width=128,
+    height=160,
+    spi_speed_hz=40000000
 )
 
 # Initialize display.
@@ -29,12 +32,12 @@ img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
 
 draw = ImageDraw.Draw(img)
 
-font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 30)
+font = ImageFont.truetype("/usr/share/fonts/truetype/takao-gothic/TakaoGothic.ttf", 24)
 
 size_x, size_y = draw.textsize(MESSAGE, font)
 
 text_x = 160
-text_y = (80 - size_y) // 2
+text_y = (120 - size_y) // 2
 
 t_start = time.time()
 
@@ -42,5 +45,5 @@ while True:
     x = (time.time() - t_start) * 100
     x %= (size_x + 160)
     draw.rectangle((0, 0, 160, 80), (0, 0, 0))
-    draw.text((int(text_x - x), text_y), MESSAGE, font=font, fill=(255, 255, 255))
+    draw.text((int(text_x - x), text_y), MESSAGE, font=font, fill=(255, 255, 0))
     disp.display(img)
