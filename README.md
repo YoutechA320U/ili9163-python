@@ -1,6 +1,6 @@
 # Python ILI9163
 
-ILI9163 TFT液晶ディスプレイを制御するためのPythonライブラリです。カーネルモジュールをインストールすることなく、ディスプレイ上に簡単な描画を行うことができます。
+RaspberryPiに装着したILI9163 TFT液晶ディスプレイを制御するためのPythonライブラリです。カーネルモジュールをインストールすることなく、ディスプレイ上に簡単な描画を行うことができます。
 
 [秋月電子通商の1.77インチ カラーグラフィックTFT LCD(128x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/)などILI9163 ベースの 160x80 ピクセル TFT SPI ディスプレイ用です。
 
@@ -17,9 +17,9 @@ sudo pip3 install pillow
 
 ````
 
-次に"ILI9163"フォルダを中身ごと"/usr/local/lib/python3.7/dist-packages/"などライブラリとして認識できる場所にコピーします。
+次に`ILI9163`フォルダを中身ごと`/usr/local/lib/python3.7/dist-packages/`などライブラリとして認識できる場所にコピーします。
 
-使い方は"example"フォルダのサンプルを参考にしてください。
+使い方は`example`フォルダのサンプルを参考にしてください。
 
 # 配線
 ※[1.77インチ カラーグラフィックTFT LCD(128x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/)とRaspberryPiの場合
@@ -48,11 +48,11 @@ sudo pip3 install pillow
 
 Pimoroniによって修正され、同社の160x80 SPI LCDブレークアウトをサポートし、他のST7735搭載ディスプレイをサポートするように一般化されています。
 
-そこから更にYoutechA320Uによって修正され、ILI9163のサポートが追加されました。
+そこから更にYoutechA320Uによって修正され、ILI9163の動作が可能になりました。
 
 ## 修正内容
 
-* 初期化コマンド(.begin())がILI9163向けに変更されました。ST7735でも動作はしますが余白が発生する場合があります。
+* 初期化コマンド(`begin()`)がILI9163向けに変更されました。ST7735でも動作はしますが余白が発生する場合があります。
 
 Pimoroni invests time and resources forking and modifying this open source code, please support Pimoroni and open-source software by purchasing products from us, too!
 
