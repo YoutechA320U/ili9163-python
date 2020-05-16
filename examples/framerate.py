@@ -49,7 +49,7 @@ disp = ILI9163.ILI9163(
     rotation=90,
     width=128,
     height=160,
-    spi_speed_hz=62000000
+    spi_speed_hz=40000000
 )
 
 WIDTH = disp.width
