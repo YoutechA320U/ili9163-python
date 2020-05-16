@@ -4,7 +4,7 @@ RaspberryPiに装着したILI9163 TFT液晶ディスプレイを制御するた�
 
 [秋月電子通商の1.77インチ カラーグラフィックTFT LCD(128x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/)などILI9163 ベースの 160x80 ピクセル TFT SPI ディスプレイ用です。
 
-![SS](https://github.com/YoutechA320U/ili9163-python/master/example.gif "example")
+![SS](https://github.com/YoutechA320U/ili9163-python/blob/master/example.gif "example")
 
 # インストール方法
 
