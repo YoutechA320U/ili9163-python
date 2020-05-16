@@ -2,7 +2,7 @@
 
 RaspberryPiに装着したILI9163 TFT液晶ディスプレイを制御するためのPythonライブラリです。カーネルモジュールをインストールすることなく、ディスプレイ上に簡単な描画を行うことができます。
 
-[秋月電子通商の1.77インチ カラーグラフィックTFT LCD(128x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/)などILI9163 ベースの 160x80 ピクセル TFT SPI ディスプレイ用です。
+[秋月電子通商の1.77インチ カラーグラフィックTFT LCD(128x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/)などILI9163 ベースの 160x80 ピクセル TFT SPI ディスプレイ用で使えます。
 
 ![SS](https://github.com/YoutechA320U/ili9163-python/blob/master/example.gif "example")
 
