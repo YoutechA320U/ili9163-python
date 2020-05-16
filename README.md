@@ -2,15 +2,45 @@
 
 ILI9163 TFT液晶ディスプレイを制御するためのPythonライブラリです。カーネルモジュールをインストールすることなく、ディスプレイ上に簡単な描画を行うことができます。
 
-ILI9163 ベースの 160x80 ピクセル TFT SPI ディスプレイ用に特別に設計されています。(具体的には[秋月電子通商](http://akizukidenshi.com/catalog/top.aspx)の[1.77インチ カラーグラフィックTFT LCD(１２８x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/))。
+[秋月電子通商の1.77インチ カラーグラフィックTFT LCD(128x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/)などILI9163 ベースの 160x80 ピクセル TFT SPI ディスプレイ用です。
 
-以下の依存関係があることを確認してください。
+
+# インストール方法
+
+まず以下のコマンドで必要なパッケージをインストールします
 
 ````
 
-python3-rpi.gpio python3-spidev python3-pip python3-imaging python3-numpy
+sudo apt-get install python3-rpi.gpio python3-spidev python3-pip python3-numpy
+
+sudo pip3 install pillow
 
 ````
+
+次に"ILI9163"フォルダを中身ごと"/usr/local/lib/python3.7/dist-packages/"などライブラリとして認識できる場所にコピーします。
+
+使い方は"example"フォルダのサンプルを参考にしてください。
+
+# 配線
+※[1.77インチ カラーグラフィックTFT LCD(128x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/)とRaspberryPiの場合
+
+|液晶ピン番号|役割|RaspberryPiピン番号|
+|:---|:--:|---:|
+|1|NC||
+|2|NC||
+|3|NC||
+|4|NC||
+|5|A(バックライトLEDアノード)|※抵抗220Ω程度を挟んで液晶VCCへ|
+|6|NC||
+|7|NC||
+|8|GND|6,9,14,20,25,30,34,39(GND)のどれか|
+|9|VCC|1か17(3.3V)|
+|10|SDA(MOSI)|19(GPIO10)|
+|11|SCK(SCLK)|23(GPIO11)|
+|12|A0(DC)|32(GPIO12)※サンプルの初期設定|
+|13|RESET(RES)|22(GPIO25)※サンプルの初期設定|
+|14|K(バックライトLEDカソード)|GNDへ|
+|15|CS(CE)|24(GPIO8)|
 
 # ライセンスと履歴
 
@@ -18,7 +48,7 @@ python3-rpi.gpio python3-spidev python3-pip python3-imaging python3-numpy
 
 Pimoroniによって修正され、同社の160x80 SPI LCDブレークアウトをサポートし、他のST7735搭載ディスプレイをサポートするように一般化されています。
 
-YoutechA320Uによって修正され、秋月電子通商の1.77インチ カラーグラフィックTFT LCD(１２８x(RGB)x160ドット) 評価キットのサポートが追加されました。
+そこから更にYoutechA320Uによって修正され、ILI9163のサポートが追加されました。
 
 ## 修正内容
 
