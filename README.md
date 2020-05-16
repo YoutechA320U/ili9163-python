@@ -20,7 +20,7 @@ sudo pip3 install pillow
 
 次に`ILI9163`フォルダを中身ごと`/usr/local/lib/python3.7/dist-packages/`などライブラリとして認識できる場所にコピーします。
 
-使い方は`example`フォルダのサンプルを参考にしてください。
+使い方は[examples](https://github.com/YoutechA320U/ili9163-python/tree/master/examples)フォルダのサンプルを参考にしてください。
 
 # 配線
 ※[1.77インチ カラーグラフィックTFT LCD(128x(RGB)x160ドット) 評価キット](http://akizukidenshi.com/catalog/g/gK-14032/)とRaspberryPiの場合
