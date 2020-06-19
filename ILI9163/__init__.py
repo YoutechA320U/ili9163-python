@@ -243,52 +243,51 @@ class ILI9163(object):
     def _init(self):
         # Initialize the display.
 
-        self.command(ILI9163_SWRESET)    # Software reset
+        self.command(ILI9163_SWRESET)    # Software reset_0x01
         time.sleep(0.150)               # delay 150 ms
 
-        self.command(ILI9163_SLPOUT)     # Out of sleep mode
-        time.sleep(0.500)               # delay 500 ms
+        self.command(ILI9163_SLPOUT)     # Out of sleep mode_0x11
 
-        self.command(ILI9163_FRMCTR1)    # Frame rate ctrl - normal mode
+        self.command(ILI9163_FRMCTR1)    # Frame rate ctrl - normal mode_0xB1
         self.data(0x0a)
         self.data(0x14)
 
-        self.command(ILI9163_PWCTR1)     # Power control
+        self.command(ILI9163_PWCTR1)     # Power control_0xC1
         self.data(0xA2)
         self.data(0x02)                 # -4.6V
         self.data(0x84)                 # auto mode
 
-        self.command(ILI9163_VMCTR1)     # Power control
+        self.command(ILI9163_VMCTR1)     # Power control_0xC5
         self.data(0x2f)
         self.data(0x3e)
 
-        self.command(ILI9163_VMCTR2)     # Power control
+        self.command(ILI9163_VMCTR2)     # Power control_0xC7
         self.data(0x40)
 
         if self._invert:
-            self.command(ILI9163_INVOFF)  # Don't invert display
+            self.command(ILI9163_INVOFF)  # Don't invert display_0x20
         else:
-            self.command(ILI9163_INVON)   # Invert display
+            self.command(ILI9163_INVON)   # Invert display_0x21
 
-        self.command(ILI9163_MADCTL)     # Memory access control (directions)
+        self.command(ILI9163_MADCTL)     # Memory access control (directions)_0x36
         self.data(0xC0)                 # row addr/col addr, bottom to top refresh
 
-        self.command(ILI9163_COLMOD)     # set color mode
+        self.command(ILI9163_COLMOD)     # set color mode_0x3A
         self.data(0x05)                 # 16-bit color
 
-        self.command(ILI9163_CASET)      # Column addr set
+        self.command(ILI9163_CASET)      # Column addr set_0x2A
         self.data(0x00)                 # XSTART = 0
         self.data(0x00)
         self.data(0x00)
         self.data(0x7f)
 
-        self.command(ILI9163_RASET)      # Row addr set
+        self.command(ILI9163_RASET)      # Row addr set_0x2B
         self.data(0x00)
         self.data(0x00)
         self.data(0x00)
         self.data(0x9f)
 
-        self.command(ILI9163_GMCTRP1)    # Set Gamma
+        self.command(ILI9163_GMCTRP1)    # Set Gamma_0xE0
         self.data(0x02)
         self.data(0x1c)
         self.data(0x07)
@@ -306,7 +305,7 @@ class ILI9163(object):
         self.data(0x03)
         self.data(0x10)
 
-        self.command(ILI9163_GMCTRN1)    # Set Gamma
+        self.command(ILI9163_GMCTRN1)    # Set Gamma_0xE1
         self.data(0x03)
         self.data(0x1d)
         self.data(0x07)
@@ -324,10 +323,10 @@ class ILI9163(object):
         self.data(0x02)
         self.data(0x10)
 
-        self.command(ILI9163_NORON)      # Normal display on
+        self.command(ILI9163_NORON)      # Normal display on_0x13
         time.sleep(0.10)                # 10 ms
 
-        self.command(ILI9163_DISPON)     # Display on
+        self.command(ILI9163_DISPON)     # Display on_0x29
         time.sleep(0.100)               # 100 ms
 
     def begin(self):
